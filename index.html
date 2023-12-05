@@ -11,8 +11,8 @@
       <h1 id="title">Naughts and Crosses</h1>
     </div>
 
-    <div>
-      <form id="player1Form">
+    <div id="playerFormContainer">
+      <form id="playerChoices">
         <label for="">Choose Player or Computer</label>
         <select name="player1UserType" id="player1UserType">
           <option value="player">Player</option>
@@ -25,7 +25,19 @@
           <option value="o">O</option>
         </select>
 
-        <input type="submit" id="player1Submit" value="Submit" />
+        <label for="">Choose Player or Computer</label>
+        <select name="player2UserType" id="player2UserType">
+          <option value="computer">Computer</option>
+          <option value="player">Player</option>
+        </select>
+
+        <label for="">Choose X or O</label>
+        <select name="player2CounterType" id="player2CounterType">
+          <option value="o">O</option>
+          <option value="x">X</option>
+        </select>
+
+        <input type="submit" id="submit" value="Submit" />
       </form>
     </div>
 

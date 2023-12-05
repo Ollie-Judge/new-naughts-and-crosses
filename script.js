@@ -1,5 +1,10 @@
-let player1UserType = document.getElementById("player1UserType");
-let player1Submit = document.getElementById("player1Submit");
+const player1UserType = document.getElementById("player1UserType");
+const player1CounterType = document.getElementById("player1CounterType");
+
+const player2UserType = document.getElementById("player2UserType");
+const player2CounterType = document.getElementById("player2CounterType");
+
+const playerSubmit = document.getElementById("submit");
 
 const gameBoardObject = {
   gameBoardArray: [
@@ -24,25 +29,26 @@ function Player(userType, counterType, playerChoices, score) {
 
 let addItemToTheThing = (e) => {
   e.preventDefault();
-  console.log(player1UserType.value);
+  const player1 = {
+    userType: player1UserType.value,
+    counterType: player1CounterType.value,
+    // playerChoices,
+    // score,
+  };
+
+  const player2 = {
+    userType: player2UserType.value,
+    counterType: player2CounterType.value,
+    // playerChoices,
+    // score,
+  };
+  console.log(player1, player2);
 };
 
-player1Submit.addEventListener("click", addItemToTheThing);
+playerSubmit.addEventListener("click", addItemToTheThing);
 
 /*
-const player1 = {
-  userType: Player1Form.userType.value,
-  counterType,
-  playerChoices,
-  score,
-};
 
-const player2 = {
-  userType: "",
-  counterType,
-  playerChoices,
-  score,
-};
 
 function addToPlayer1(form) {
   player1=userType.form.userType.

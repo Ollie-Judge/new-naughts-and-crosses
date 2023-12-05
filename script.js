@@ -16,15 +16,15 @@ let turn = 0;
 
 const gameBoardObject = {
   gameBoardArray: [
-    "square1",
-    "square2",
-    "square3",
-    "square4",
-    "square5",
-    "square6",
-    "square7",
-    "square8",
-    "square9",
+    { name: "square1", clicked: false },
+    { name: "square2", clicked: false },
+    { name: "square3", clicked: false },
+    { name: "square4", clicked: false },
+    { name: "square5", clicked: false },
+    { name: "square6", clicked: false },
+    { name: "square7", clicked: false },
+    { name: "square8", clicked: false },
+    { name: "square9", clicked: false },
   ],
 };
 
@@ -58,30 +58,35 @@ let addPlayerSettings = (e) => {
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
+const removeGameDivEListener = (e) => {
+  e.removeEventListener("click", createEventListener);
+  console.log("removed");
+};
+
 const createEventListener = () => {
   document.querySelectorAll(".gameDiv").forEach((e) =>
     e.addEventListener("click", (event) => {
       console.log(event.target);
       turn++;
       console.log(`turn: ${turn}`);
-      // removeGameDivEListener(e);
+      removeGameDivEListener(e);
     })
   );
+};
+
+const createGameSquares = () => {
+  gameBoardObject.gameBoardArray.forEach((arrayItem) => {
+    let div = document.createElement("div");
+    div.id = arrayItem.name;
+    div.className = `gameDiv ${arrayItem.name}`;
+    gameContainer.appendChild(div);
+  });
 };
 
 let playGame = () => {
   playerFormContainer.style.visibility = "hidden";
   gameContainer.style.visibility = "visible";
-  gameBoardObject.gameBoardArray.forEach((item) => {
-    let div = document.createElement("div");
-    div.id = item;
-    div.className = `gameDiv ${item}`;
-    gameContainer.appendChild(div);
-  });
+  createGameSquares();
   createEventListener();
 };
-
-// const removeGameDivEListener = () => {
-//   e.removeEventListener("click", createEventListener);
-// };
 console.log(turn);

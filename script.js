@@ -1,3 +1,5 @@
+const playerFormContainer = document.getElementById("playerFormContainer");
+
 const player1UserType = document.getElementById("player1UserType");
 const player1CounterType = document.getElementById("player1CounterType");
 
@@ -5,6 +7,8 @@ const player2UserType = document.getElementById("player2UserType");
 const player2CounterType = document.getElementById("player2CounterType");
 
 const playerSubmit = document.getElementById("submit");
+
+const gameContainer = document.getElementById("gameContainer");
 
 const gameBoardObject = {
   gameBoardArray: [
@@ -42,14 +46,21 @@ let addPlayerSettings = (e) => {
     // playerChoices,
     // score,
   };
+  playGame();
   console.log(player1, player2);
 };
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
-/*
+let playGame = () => {
+  playerFormContainer.style.visibility = "hidden";
+  gameContainer.style.visibility = "visible";
+  gameBoardObject.gameBoardArray.forEach((square, i) => {
+    let div = document.createElement("div");
+    div.id = `${square}${i}`;
+    div.className = `div ${square}${i}`;
+    gameContainer.appendChild(div);
+  });
+};
 
-
-function addToPlayer1(form) {
-  player1=userType.form.userType.
-}*/
+let addClickEventToDivs = () => {};

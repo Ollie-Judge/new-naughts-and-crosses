@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#title {
+  text-align: center;
+  margin: 50px auto;
+}
+
+#gameContainer {
+  visibility: hidden;
+  margin: auto;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 50%;
+}
+
+.div {
+  background-color: blue;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 75px 5px;
+  font-size: 30px;
+  text-align: center;
+}
+
+#playerFormContainer,
+#playerChoicesForm,
+#player1ChoosePlayerContainer {
+  margin: auto;
+}

@@ -62,6 +62,8 @@ const createEventListener = () => {
   document.querySelectorAll(".gameDiv").forEach((e) =>
     e.addEventListener("click", (event) => {
       console.log(event.target);
+      turn++;
+      console.log(`turn: ${turn}`);
       // removeGameDivEListener(e);
     })
   );

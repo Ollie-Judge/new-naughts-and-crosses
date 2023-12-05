@@ -27,7 +27,7 @@ function Player(userType, counterType, playerChoices, score) {
   this.score = score;
 }
 
-let addItemToTheThing = (e) => {
+let addPlayerSettings = (e) => {
   e.preventDefault();
   const player1 = {
     userType: player1UserType.value,
@@ -45,7 +45,7 @@ let addItemToTheThing = (e) => {
   console.log(player1, player2);
 };
 
-playerSubmit.addEventListener("click", addItemToTheThing);
+playerSubmit.addEventListener("click", addPlayerSettings);
 
 /*
 

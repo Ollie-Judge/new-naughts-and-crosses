@@ -28,6 +28,19 @@ const gameBoardObject = {
   ],
 };
 
+const winningCombinationsObject = {
+  winningCombinations: [
+    { win1: ["square1", "square2", "square3"] },
+    { win2: ["square4", "square5", "square6"] },
+    { win3: ["square7", "square8", "square9"] },
+    { win4: ["square3", "square5", "square7"] },
+    { win5: ["square1", "square5", "square9"] },
+    { win6: ["square1", "square4", "square7"] },
+    { win7: ["square3", "square6", "square9"] },
+    { win8: ["square2", "square5", "square8"] },
+  ],
+};
+
 function Player(userType, counterType, playerChoices, score) {
   this.userType = userType;
   this.counterType = counterType;
@@ -61,7 +74,26 @@ let addPlayerSettings = (e) => {
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
-let checkWin = () => {};
+let checkWin = () => {
+  winningCombinationsObject.winningCombinations.forEach((combination, i) => {
+    let winningCombinationsArray = `win${i + 1}`;
+
+    console.log(combination);
+    console.log(
+      winningCombinationsArray,
+      ":",
+      winningCombinationsObject.winningCombinations.win1
+    );
+  });
+  winningCombinationsObject.winningCombinations.winningCombinationsArray.forEach(
+    (item) => {
+      console.log(item);
+    }
+  );
+  console.log(winningCombinationsObject.winningCombinations.win1);
+  if (player1.playerChoices.includes()) {
+  }
+};
 
 const addItemsToGameBoard = () => {
   player1.playerChoices.forEach((choice) => {
@@ -81,15 +113,11 @@ const checkTurn = (clickedSquare) => {
   if (turn % 2 === 0) {
     player1.turn = false;
     player2.turn = true;
-    console.log("turn", player1);
-    console.log("turn", player2);
     player2.playerChoices.push(clickedSquare);
     console.log("player2", player2.playerChoices);
   } else {
     player1.turn = true;
     player2.turn = false;
-    console.log("turn", player1);
-    console.log("turn", player2);
     player1.playerChoices.push(clickedSquare);
     console.log("player1", player1.playerChoices);
   }
@@ -103,8 +131,7 @@ const createEventListener = (e) => {
       console.log(clickedSquare);
       turn++;
       console.log(`turn: ${turn}`);
-      let test = (gameBoardObject.gameBoardArray.clicked = true);
-      console.log(test);
+      gameBoardObject.gameBoardArray.clicked = true;
       checkTurn(clickedSquare);
       if ((gameBoardObject.gameBoardArray.clicked = true)) {
         square.style.pointerEvents = "none";

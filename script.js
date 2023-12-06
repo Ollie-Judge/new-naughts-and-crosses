@@ -58,18 +58,17 @@ let addPlayerSettings = (e) => {
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
-const removeGameDivEListener = (e) => {
-  e.removeEventListener("click", createEventListener);
-  console.log("removed");
-};
-
-const createEventListener = () => {
-  document.querySelectorAll(".gameDiv").forEach((e) =>
-    e.addEventListener("click", (event) => {
-      console.log(event.target);
+const createEventListener = (e) => {
+  document.querySelectorAll(".gameDiv").forEach((square) =>
+    square.addEventListener("click", (event) => {
       turn++;
       console.log(`turn: ${turn}`);
-      removeGameDivEListener(e);
+      let test = (gameBoardObject.gameBoardArray.clicked = true);
+      console.log(test);
+      if ((gameBoardObject.gameBoardArray.clicked = true)) {
+        square.style.pointerEvents = "none";
+        console.log("pointer event set to none");
+      }
     })
   );
 };

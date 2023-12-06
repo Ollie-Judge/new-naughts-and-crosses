@@ -35,22 +35,25 @@ function Player(userType, counterType, playerChoices, score) {
   this.score = score;
 }
 
+let player1 = new Player();
+let player2 = new Player();
+
 let addPlayerSettings = (e) => {
   e.preventDefault();
-  const player1 = {
+  player1 = {
     userType: player1UserType.value,
     counterType: player1CounterType.value,
-    //turn
-    // playerChoices,
-    // score,
+    turn: true,
+    playerChoices: [],
+    score: 0,
   };
 
-  const player2 = {
+  player2 = {
     userType: player2UserType.value,
     counterType: player2CounterType.value,
-    //turn
-    // playerChoices,
-    // score,
+    turn: false,
+    playerChoices: [],
+    score: 0,
   };
   playGame();
   console.log(player1, player2);
@@ -58,13 +61,36 @@ let addPlayerSettings = (e) => {
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
+const addItemsToGameBoard = () => {};
+
+const checkTurn = (clickedSquare) => {
+  if (turn % 2 === 0) {
+    player1.turn = false;
+    player2.turn = true;
+    console.log("turn", player1);
+    console.log("turn", player2);
+    player2.playerChoices.push(clickedSquare);
+    console.log("player2", player2.playerChoices);
+  } else {
+    player1.turn = true;
+    player2.turn = false;
+    console.log("turn", player1);
+    console.log("turn", player2);
+    player1.playerChoices.push(clickedSquare);
+    console.log("player1", player1.playerChoices);
+  }
+};
+
 const createEventListener = (e) => {
   document.querySelectorAll(".gameDiv").forEach((square) =>
     square.addEventListener("click", (event) => {
+      clickedSquare = square.getAttribute("id");
+      console.log(clickedSquare);
       turn++;
       console.log(`turn: ${turn}`);
       let test = (gameBoardObject.gameBoardArray.clicked = true);
       console.log(test);
+      checkTurn(clickedSquare);
       if ((gameBoardObject.gameBoardArray.clicked = true)) {
         square.style.pointerEvents = "none";
         console.log("pointer event set to none");
@@ -88,4 +114,5 @@ let playGame = () => {
   createGameSquares();
   createEventListener();
 };
+
 console.log(turn);

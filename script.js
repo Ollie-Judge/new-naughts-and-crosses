@@ -61,7 +61,21 @@ let addPlayerSettings = (e) => {
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
-const addItemsToGameBoard = () => {};
+let checkWin = () => {};
+
+const addItemsToGameBoard = () => {
+  player1.playerChoices.forEach((choice) => {
+    let chosenDiv = document.getElementById(choice);
+    chosenDiv.innerHTML = player1.counterType;
+  });
+
+  player2.playerChoices.forEach((choice) => {
+    let chosenDiv = document.getElementById(choice);
+    chosenDiv.innerHTML = player2.counterType;
+  });
+
+  checkWin();
+};
 
 const checkTurn = (clickedSquare) => {
   if (turn % 2 === 0) {
@@ -79,6 +93,7 @@ const checkTurn = (clickedSquare) => {
     player1.playerChoices.push(clickedSquare);
     console.log("player1", player1.playerChoices);
   }
+  addItemsToGameBoard();
 };
 
 const createEventListener = (e) => {

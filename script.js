@@ -30,14 +30,14 @@ const gameBoardObject = {
 
 const winningCombinationsObject = {
   winningCombinations: [
-    { win1: ["square1", "square2", "square3"] },
-    { win2: ["square4", "square5", "square6"] },
-    { win3: ["square7", "square8", "square9"] },
-    { win4: ["square3", "square5", "square7"] },
-    { win5: ["square1", "square5", "square9"] },
-    { win6: ["square1", "square4", "square7"] },
-    { win7: ["square3", "square6", "square9"] },
-    { win8: ["square2", "square5", "square8"] },
+    ["square1", "square2", "square3"],
+    ["square4", "square5", "square6"],
+    ["square7", "square8", "square9"],
+    ["square3", "square5", "square7"],
+    ["square1", "square5", "square9"],
+    ["square1", "square4", "square7"],
+    ["square3", "square6", "square9"],
+    ["square2", "square5", "square8"],
   ],
 };
 
@@ -75,21 +75,20 @@ let addPlayerSettings = (e) => {
 playerSubmit.addEventListener("click", addPlayerSettings);
 
 let checkWin = () => {
-  winningCombinationsObject.winningCombinations.forEach((combination, i) => {
-    let winningCombinationsArray = `win${i + 1}`;
-
-    console.log(combination);
-    console.log(
-      winningCombinationsArray,
-      ":",
-      winningCombinationsObject.winningCombinations.win1
-    );
-  });
-  winningCombinationsObject.winningCombinations.winningCombinationsArray.forEach(
-    (item) => {
-      console.log(item);
+  winningCombinationsObject.winningCombinations.forEach((combinations, i) => {
+    if (
+      (player1.playerChoices.includes(combinations[0]) &&
+        player1.playerChoices.includes(combinations[1]) &&
+        player1.playerChoices.includes(combinations[2])) ||
+      (player2.playerChoices.includes(combinations[0]) &&
+        player2.playerChoices.includes(combinations[1]) &&
+        player2.playerChoices.includes(combinations[2]))
+    ) {
+      alert("win");
     }
-  );
+    console.log(combinations);
+  });
+
   console.log(winningCombinationsObject.winningCombinations.win1);
   if (player1.playerChoices.includes()) {
   }

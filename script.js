@@ -17,27 +17,21 @@ let newComputerItem;
 let generateComputerChoices = () => {
   let computerChoice = Math.floor(Math.random() * 9 + 1);
   newComputerItem = `square${computerChoice}`;
+  console.log("newcomputer item:", newComputerItem);
 };
 
 let pushComputerChoices = () => {
+  generateComputerChoices();
   if (
-    !player1.playerChoices.includes(newComputerItem) &&
-    player1.userType === "computer"
-  ) {
-    player1.playerChoices.push(newComputerItem);
-    console.log("Computer Player Choices:", player1.playerChoices);
-  } else {
-    generateComputerChoices();
-  }
-
-  if (
-    !player2.playerChoices.includes(newComputerItem) &&
+    player1.playerChoices.includes(newComputerItem) &&
+    player2.playerChoices.includes(newComputerItem) &&
     player2.userType === "computer"
   ) {
-    player2.playerChoices.push(newComputerItem);
+    generateComputerChoices();
     console.log("Computer Player Choices:", player2.playerChoices);
   } else {
-    generateComputerChoices();
+    player2.playerChoices.push(newComputerItem);
+    console.log("Computer Player Choices:", player2.playerChoices);
   }
 };
 
@@ -104,6 +98,12 @@ playerSubmit.addEventListener("click", addPlayerSettings);
 let resetPlayerChoices = () => {
   player1.playerChoices = [];
   player2.playerChoices = [];
+
+  let gameDiv = document.querySelectorAll(".gameDiv");
+  gameDiv.forEach((div) => {
+    div.innerHTML = "";
+  });
+
   console.log("player1 playerChoices:", player1.playerChoices);
   console.log("player2 playerChoices:", player2.playerChoices);
 };
@@ -140,15 +140,19 @@ let checkWin = () => {
 };
 
 const addItemsToGameBoard = () => {
-  player1.playerChoices.forEach((choice) => {
-    let chosenDiv = document.getElementById(choice);
-    chosenDiv.innerHTML = player1.counterType;
-  });
+  if (player1.playerChoices.length > 0) {
+    player1.playerChoices.forEach((choice) => {
+      let chosenDiv = document.getElementById(choice);
+      chosenDiv.innerHTML = player1.counterType;
+    });
+  }
 
-  player2.playerChoices.forEach((choice) => {
-    let chosenDiv = document.getElementById(choice);
-    chosenDiv.innerHTML = player2.counterType;
-  });
+  if (player2.playerChoices.length > 0) {
+    player2.playerChoices.forEach((choice) => {
+      let chosenDiv = document.getElementById(choice);
+      chosenDiv.innerHTML = player2.counterType;
+    });
+  }
 
   checkWin();
 };
@@ -167,23 +171,10 @@ const checkTurn = (clickedSquare) => {
       console.log("player1", player1.playerChoices);
     }
 
-  if (player1.userType === "computer") {
-    player2.playerChoices.push(clickedSquare);
-    console.log("player2", player2.playerChoices);
-
-    pushComputerChoices();
-  }
   if (player2.userType === "computer") {
     player1.playerChoices.push(clickedSquare);
     console.log("player1", player1.playerChoices);
     pushComputerChoices();
-    player1.playerChoices.forEach((item) => {
-      if (player2.playerChoices.includes(item)) {
-        let index = player2.indexOf(item);
-        player2.playerChoices.splice(index, 1);
-        pushComputerChoices();
-      }
-    });
   }
   addItemsToGameBoard();
 };

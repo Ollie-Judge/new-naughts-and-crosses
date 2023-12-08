@@ -11,8 +11,35 @@ const playerSubmit = document.getElementById("submit");
 const gameContainer = document.getElementById("gameContainer");
 
 let turn = 0;
-// if turn % 2 === 0 then its player 2s turn
-// all odds are player 1s turn
+
+let newComputerItem;
+
+let generateComputerChoices = () => {
+  let computerChoice = Math.floor(Math.random() * 9 + 1);
+  newComputerItem = `square${computerChoice}`;
+};
+
+let pushComputerChoices = () => {
+  if (
+    !player1.playerChoices.includes(newComputerItem) &&
+    player1.userType === "computer"
+  ) {
+    player1.playerChoices.push(newComputerItem);
+    console.log("Computer Player Choices:", player1.playerChoices);
+  } else {
+    generateComputerChoices();
+  }
+
+  if (
+    !player2.playerChoices.includes(newComputerItem) &&
+    player2.userType === "computer"
+  ) {
+    player2.playerChoices.push(newComputerItem);
+    console.log("Computer Player Choices:", player2.playerChoices);
+  } else {
+    generateComputerChoices();
+  }
+};
 
 const gameBoardObject = {
   gameBoardArray: [
@@ -74,24 +101,42 @@ let addPlayerSettings = (e) => {
 
 playerSubmit.addEventListener("click", addPlayerSettings);
 
+let resetPlayerChoices = () => {
+  player1.playerChoices = [];
+  player2.playerChoices = [];
+  console.log("player1 playerChoices:", player1.playerChoices);
+  console.log("player2 playerChoices:", player2.playerChoices);
+};
+
 let checkWin = () => {
   winningCombinationsObject.winningCombinations.forEach((combinations, i) => {
     if (
-      (player1.playerChoices.includes(combinations[0]) &&
-        player1.playerChoices.includes(combinations[1]) &&
-        player1.playerChoices.includes(combinations[2])) ||
-      (player2.playerChoices.includes(combinations[0]) &&
-        player2.playerChoices.includes(combinations[1]) &&
-        player2.playerChoices.includes(combinations[2]))
+      player1.playerChoices.includes(combinations[0]) &&
+      player1.playerChoices.includes(combinations[1]) &&
+      player1.playerChoices.includes(combinations[2])
     ) {
-      alert("win");
+      {
+        alert("Player 1 wins");
+        player1.score++;
+        console.log("player1: ", player1.score);
+        resetPlayerChoices();
+      }
     }
-    console.log(combinations);
+    if (
+      player2.playerChoices.includes(combinations[0]) &&
+      player2.playerChoices.includes(combinations[1]) &&
+      player2.playerChoices.includes(combinations[2])
+    ) {
+      {
+        alert("Player 2 wins");
+        player2.score++;
+        console.log("player2: ", player2.score);
+        resetPlayerChoices();
+      }
+    }
   });
 
   console.log(winningCombinationsObject.winningCombinations.win1);
-  if (player1.playerChoices.includes()) {
-  }
 };
 
 const addItemsToGameBoard = () => {
@@ -109,16 +154,36 @@ const addItemsToGameBoard = () => {
 };
 
 const checkTurn = (clickedSquare) => {
-  if (turn % 2 === 0) {
-    player1.turn = false;
-    player2.turn = true;
+  if (player1.userType === "player" && player2.userType === "player")
+    if (turn % 2 === 0) {
+      player1.turn = false;
+      player2.turn = true;
+      player2.playerChoices.push(clickedSquare);
+      console.log("player2", player2.playerChoices);
+    } else {
+      player1.turn = true;
+      player2.turn = false;
+      player1.playerChoices.push(clickedSquare);
+      console.log("player1", player1.playerChoices);
+    }
+
+  if (player1.userType === "computer") {
     player2.playerChoices.push(clickedSquare);
     console.log("player2", player2.playerChoices);
-  } else {
-    player1.turn = true;
-    player2.turn = false;
+
+    pushComputerChoices();
+  }
+  if (player2.userType === "computer") {
     player1.playerChoices.push(clickedSquare);
     console.log("player1", player1.playerChoices);
+    pushComputerChoices();
+    player1.playerChoices.forEach((item) => {
+      if (player2.playerChoices.includes(item)) {
+        let index = player2.indexOf(item);
+        player2.playerChoices.splice(index, 1);
+        pushComputerChoices();
+      }
+    });
   }
   addItemsToGameBoard();
 };
@@ -132,6 +197,7 @@ const createEventListener = (e) => {
       console.log(`turn: ${turn}`);
       gameBoardObject.gameBoardArray.clicked = true;
       checkTurn(clickedSquare);
+
       if ((gameBoardObject.gameBoardArray.clicked = true)) {
         square.style.pointerEvents = "none";
         console.log("pointer event set to none");
